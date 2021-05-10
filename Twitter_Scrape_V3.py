@@ -29,9 +29,10 @@ for country in countries:
             browser.get(url)
             time.sleep(1)
             soup = BeautifulSoup(browser.page_source, 'lxml')
-            f = soup.find('li', class_="ProfileNav-item--followers")
-            title = f.find('a')['title']
-            num_followers = int(title.split(' ')[0].replace(',', ''))
+            f = soup.find_all('span',
+                              attrs={'class': 'css-901oao css-16my406 r-1fmj7o5 r-poiln3 r-b88u0q r-bcqeeo r-qvutc0'})
+            follower = f[1].find('span', attrs={'class': 'css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0'})
+            num_followers = str(follower)[64:str(follower).find('</span>')]
             follower_list.append(num_followers)
             companies.append(df1.iloc[i]['Company'])
         except:
