@@ -30,8 +30,10 @@ for country in countries:
             browser.get(url)
             time.sleep(1)
             soup = BeautifulSoup(browser.page_source, 'lxml')
-            likes = soup.find('span', attrs={'class': '_52id _50f5 _50f7'})
-            num_followers = str(likes)[32:str(likes).find(' <span class="_50f8 _50f4 _5kx5">suka</span></span>')]
+            likes = soup.find('div', attrs={'class': '_4-u2 _6590 _3xaf _4-u8'})
+            likes = likes.find_all('div', attrs={'class': '_2pi9 _2pi2'})
+            likes = likes[1].find('div', attrs={'class': '_4bl9'})
+            num_followers = str(likes)[24:str(likes).find(' orang mengikuti ini</div></div>')]
             follower_list.append(num_followers)
             companies.append(df1.iloc[i]['Company'])
 
