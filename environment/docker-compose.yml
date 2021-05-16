@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+
+  scrapper-python:
+    image: scrapper-python
+    build:
+      context: ./python
+    container_name: scrapper-python
+    working_dir: /src
+    volumes:
+      - ../src:/src
+      - ../results:/src/results
+    tty: true

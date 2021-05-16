@@ -1,0 +1,3 @@
+[console_scripts]
+facebook-scraper=facebook_scraper.__main__:run
+

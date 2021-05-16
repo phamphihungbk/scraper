@@ -1,0 +1,3 @@
+[console_scripts]
+geckodriver-path = geckodriver_autoinstaller.utils:print_geckodriver_path
+

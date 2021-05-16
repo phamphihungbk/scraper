@@ -1,8 +1,2 @@
-.idea/
-venv
-geckodriver.log
-Facebook_Result.xlsx
-Instagram_Result.xlsx
-Twitter_Result.xlsx
-Social_Media_URL_testing.xlsx
-test.py
+.idea
+results/
