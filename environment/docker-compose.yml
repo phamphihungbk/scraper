@@ -1,9 +1,5 @@
 version: '3'
 
-networks:
-  scrapper-network:
-    driver: bridge
-
 services:
   scrapper-python:
     image: scrapper-python
@@ -15,15 +11,3 @@ services:
       - ../src:/src
       - ../results:/src/results
     tty: true
-    networks:
-      - scrapper-network
-
-  selenium-server:
-    image: selenium-server
-    build:
-      context: ./selenium-server
-    container_name: selenium-server
-    volumes_from:
-      - scrapper-python
-    networks:
-      - scrapper-network
