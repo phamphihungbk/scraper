@@ -1,0 +1,4 @@
+beautifulsoup4==4.9.3
+selenium==2.53.5
+python-time==0.3.0
+pandas==1.2.4

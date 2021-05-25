@@ -5,7 +5,7 @@ from selenium.webdriver.firefox.options import Options
 import time
 
 writer = pd.ExcelWriter('Twitter_Result.xlsx', engine='xlsxwriter')  # name of the output file
-xls = pd.ExcelFile('Social_Media_URLs.xlsx')  # name of the source file
+xls = pd.ExcelFile('./results/Social_Media_URLs.xlsx')  # name of the source file
 countries = ['MY', 'ID', 'PH', 'SG']  # sheets of the source file
 
 username = []
