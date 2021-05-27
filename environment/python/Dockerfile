@@ -3,15 +3,16 @@ FROM python:3.7.10-stretch
 RUN apt-get update && apt-get install -yq \
     git-core \
     unzip \
-    xclip
+    xclip \
+    libnss3-dev
 
-# GeckoDriver v0.19.1
-RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/v0.19.1/geckodriver-v0.19.1-linux64.tar.gz" -O /tmp/geckodriver.tgz \
+# GeckoDriver v0.29.1
+RUN wget -q "https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz" -O /tmp/geckodriver.tgz \
     && tar zxf /tmp/geckodriver.tgz -C /usr/bin/ \
     && rm /tmp/geckodriver.tgz
 
-# chromeDriver v2.35
-RUN wget -q "https://chromedriver.storage.googleapis.com/2.35/chromedriver_linux64.zip" -O /tmp/chromedriver.zip \
+# chromeDriver v91.0.4472.19
+RUN wget -q "https://chromedriver.storage.googleapis.com/91.0.4472.19/chromedriver_linux64.zip" -O /tmp/chromedriver.zip \
     && unzip /tmp/chromedriver.zip -d /usr/bin/ \
     && rm /tmp/chromedriver.zip
 
