@@ -9,7 +9,7 @@ services:
     working_dir: /src
     volumes:
       - ../src:/src
-      - ../results:/src/results
+      - ../results:/results
     tty: true
 
   selenium-chrome:

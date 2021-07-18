@@ -4,7 +4,7 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-writer = pd.ExcelWriter('./results/Instagram_Result.xlsx', engine='xlsxwriter')  # name of the output file
+writer = pd.ExcelWriter('../results/Instagram_Result.xlsx', engine='xlsxwriter')  # name of the output file
 xls = pd.ExcelFile('Social_Media_URLs.xlsx')  # name of the source file
 countries = ['MY', 'ID', 'PH', 'SG', 'VN', 'TH']  # sheets of the source file
 

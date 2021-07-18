@@ -1,7 +1,6 @@
 .PHONY: up ## docker up
 up:
 	docker-compose -f ./environment/docker-compose.yml up -d --remove-orphans
-	pip-install
 
 .PHONY: build ## docker build
 build:
