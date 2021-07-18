@@ -13,7 +13,3 @@ down:
 .PHONY: pip-install ## install dependencies with pip
 pip-install:
 	docker exec -it scrapper-python sh -c "pip install -r requirements.txt"
-
-.PHONY: check-verison ## check version of dependencies
-check-version:
-	docker exec -it scrapper-python sh -c "geckodriver --version"

@@ -9,5 +9,13 @@ services:
     working_dir: /src
     volumes:
       - ../src:/src
-      - ../results:/src/results
+      - ../results:/results
     tty: true
+
+  selenium-chrome:
+    image: selenium-chrome
+    build:
+      context: ./selenium
+    container_name: selenium-chrome
+    ports:
+    - 4444:4444

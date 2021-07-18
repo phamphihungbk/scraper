@@ -2,9 +2,9 @@ import re
 import time
 import pandas as pd
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 
-writer = pd.ExcelWriter('./results/Instagram_Result.xlsx', engine='xlsxwriter')  # name of the output file
+writer = pd.ExcelWriter('../results/Instagram_Result.xlsx', engine='xlsxwriter')  # name of the output file
 xls = pd.ExcelFile('Social_Media_URLs.xlsx')  # name of the source file
 countries = ['MY', 'ID', 'PH', 'SG', 'VN', 'TH']  # sheets of the source file
 
@@ -12,7 +12,7 @@ username = []
 bad_urls = []
 browser_options = Options()
 browser_options.add_argument('--headless')
-browser = webdriver.Firefox(options=browser_options)
+browser = webdriver.Remote('http://selenium-chrome:4444/wd/hub', options=browser_options)
 
 for country in countries:
     df1 = pd.read_excel(xls, country)

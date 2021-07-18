@@ -1,18 +1,18 @@
 import pandas as pd
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.chrome.options import Options
 import time
 
 writer = pd.ExcelWriter('Twitter_Result.xlsx', engine='xlsxwriter')  # name of the output file
-xls = pd.ExcelFile('./results/Social_Media_URLs.xlsx')  # name of the source file
+xls = pd.ExcelFile('../results/Social_Media_URLs.xlsx')  # name of the source file
 countries = ['MY', 'ID', 'PH', 'SG']  # sheets of the source file
 
 username = []
 bad_url = []
 browser_options = Options()
 browser_options.add_argument('--headless')
-browser = webdriver.Firefox(options=browser_options)
+browser = webdriver.Remote('http://selenium-chrome:4444/wd/hub', options=browser_options)
 
 for country in countries:
     df1 = pd.read_excel(xls, country)
