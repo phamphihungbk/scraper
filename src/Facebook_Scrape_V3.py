@@ -12,7 +12,7 @@ username = []
 bad_urls = []
 browser_options = Options()
 browser_options.add_argument('--headless')
-browser = webdriver.Chrome(options=browser_options)
+browser = webdriver.Remote('http://selenium-chrome:4444/wd/hub', options=browser_options)
 
 for country in countries:
     df1 = pd.read_excel(xls, country)
