@@ -1,8 +1,8 @@
 import time
 import pandas as pd
-from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+import re
 
 writer = pd.ExcelWriter('../results/Facebook_Result.xlsx', engine='xlsxwriter')  # name of the output file
 xls = pd.ExcelFile('Social_Media_URLs.xlsx')  # name of the source file
@@ -13,6 +13,16 @@ bad_urls = []
 browser_options = Options()
 browser_options.add_argument('--headless')
 browser = webdriver.Remote('http://selenium-chrome:4444/wd/hub', options=browser_options)
+
+browser.get("http://www.facebook.com")
+usr = browser.find_element_by_id("email")
+password = browser.find_element_by_id("pass")
+submit = browser.find_element_by_name("login")
+usr.send_keys("")
+password.send_keys("")
+submit.click()
+# wait for login in
+time.sleep(5)
 
 for country in countries:
     df1 = pd.read_excel(xls, country)
@@ -27,13 +37,12 @@ for country in countries:
             company = str(df1.iloc[i]['Facebook']).split("/")
             company = company[3]
             url = 'https://www.facebook.com/' + company
+            time.sleep(2)
             browser.get(url)
-            time.sleep(1)
-            soup = BeautifulSoup(browser.page_source, 'lxml')
-            likes = soup.find('div', attrs={'class': '_4-u2 _6590 _3xaf _4-u8'})
-            likes = likes.find_all('div', attrs={'class': '_2pi9 _2pi2'})
-            likes = likes[1].find('div', attrs={'class': '_4bl9'})
-            num_followers = str(likes)[24:str(likes).find(' orang mengikuti ini</div></div>')]
+            time.sleep(2)
+            m = re.search(r'([0-9,]+) people follow this</span>', str(browser.page_source))
+            num_followers = m[1]
+            print(num_followers)
             follower_list.append(num_followers)
             companies.append(df1.iloc[i]['Company'])
 

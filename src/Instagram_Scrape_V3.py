@@ -14,6 +14,17 @@ browser_options = Options()
 browser_options.add_argument('--headless')
 browser = webdriver.Remote('http://selenium-chrome:4444/wd/hub', options=browser_options)
 
+browser.get("https://www.instagram.com/accounts/login/")
+time.sleep(4)
+usr = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[1]/div/label/input")
+password = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[2]/div/label/input")
+submit = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[3]/button")
+usr.send_keys("")
+password.send_keys("")
+submit.click()
+# wait for login in
+time.sleep(5)
+
 for country in countries:
     df1 = pd.read_excel(xls, country)
     companies = []
@@ -27,10 +38,12 @@ for country in countries:
             company = str(df1.iloc[i]['Instagram']).split("/")
             company = company[3]
             url = 'https://www.instagram.com/' + company
+            time.sleep(2)
             browser.get(url)
-            time.sleep(1)
+            time.sleep(2)
             m = re.search(r'"edge_followed_by":\{"count":([0-9]+)\}', str(browser.page_source))
             num_followers = m.group(1)
+            print(num_followers)
             follower_list.append(num_followers)
             companies.append(df1.iloc[i]['Company'])
 
