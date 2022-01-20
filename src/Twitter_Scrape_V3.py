@@ -4,15 +4,23 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import time
 
-writer = pd.ExcelWriter('Twitter_Result.xlsx', engine='xlsxwriter')  # name of the output file
-xls = pd.ExcelFile('../results/Social_Media_URLs.xlsx')  # name of the source file
-countries = ['MY', 'ID', 'PH', 'SG']  # sheets of the source file
+# name of the output file
+writer = pd.ExcelWriter('../results/Twitter_Result.xlsx', engine='xlsxwriter')
+# name of the source file
+xls = pd.ExcelFile('Social_Media_URLs.xlsx')
+# sheets of the source file
+countries = ['MY', 'ID', 'PH', 'SG']
 
 username = []
 bad_url = []
-browser_options = Options()
-browser_options.add_argument('--headless')
-browser = webdriver.Remote('http://selenium-chrome:4444/wd/hub', options=browser_options)
+bs_options = Options()
+bs_options.add_argument('--headless')
+bs_options.add_argument('--lang=en')
+bs_options.add_argument('--enable-javascript')
+browser = webdriver.Remote(
+	'http://selenium-chrome:4444/wd/hub',
+	options=bs_options
+)
 
 for country in countries:
     df1 = pd.read_excel(xls, country)
@@ -33,6 +41,7 @@ for country in countries:
                               attrs={'class': 'css-901oao css-16my406 r-1fmj7o5 r-poiln3 r-b88u0q r-bcqeeo r-qvutc0'})
             follower = f[1].find('span', attrs={'class': 'css-901oao css-16my406 r-poiln3 r-bcqeeo r-qvutc0'})
             num_followers = str(follower)[64:str(follower).find('</span>')]
+            print(num_followers)
             follower_list.append(num_followers)
             companies.append(df1.iloc[i]['Company'])
         except:
