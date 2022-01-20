@@ -4,6 +4,5 @@ RUN apt-get update && apt-get install -yq \
     git-core \
     unzip \
     xclip \
-    libnss3-dev
-
-RUN mkdir -p /src
+    libnss3-dev \
+    && mkdir -p /src

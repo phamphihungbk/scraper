@@ -12,4 +12,4 @@ down:
 
 .PHONY: pip-install ## install dependencies with pip
 pip-install:
-	docker exec -it scrapper-python sh -c "pip install -r requirements.txt"
+	docker exec -it scrapper-python sh -c "pip install --cache-dir=pip-cache -r requirements.txt"

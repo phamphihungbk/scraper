@@ -4,24 +4,34 @@ import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 
-writer = pd.ExcelWriter('../results/Instagram_Result.xlsx', engine='xlsxwriter')  # name of the output file
-xls = pd.ExcelFile('Social_Media_URLs.xlsx')  # name of the source file
-countries = ['MY', 'ID', 'PH', 'SG', 'VN', 'TH']  # sheets of the source file
+# name of the output file
+writer = pd.ExcelWriter('../results/Instagram_Result.xlsx', engine='xlsxwriter')
+# name of the source file
+xls = pd.ExcelFile('Social_Media_URLs.xlsx')
+# sheets of the source file
+countries = ['MY', 'ID', 'PH', 'SG', 'VN', 'TH']
 
 username = []
 bad_urls = []
-browser_options = Options()
-browser_options.add_argument('--headless')
-browser = webdriver.Remote('http://selenium-chrome:4444/wd/hub', options=browser_options)
+bs_options = Options()
+bs_options.add_argument('--headless')
+bs_options.add_argument('--lang=en')
+browser = webdriver.Remote(
+	'http://selenium-chrome:4444/wd/hub',
+	options=bs_options
+)
 
-browser.get("https://www.instagram.com/accounts/login/")
+browser.get('https://www.instagram.com/accounts/login/')
 time.sleep(4)
-usr = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[1]/div/label/input")
-password = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[2]/div/label/input")
-submit = browser.find_element_by_xpath("/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[3]/button")
-usr.send_keys("")
-password.send_keys("")
+usr = browser.find_element_by_xpath('/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[1]/div/label/input')
+password = browser.find_element_by_xpath('/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[2]/div/label/input')
+submit = browser.find_element_by_xpath('/html/body/div[1]/section/main/div/div/div[1]/div/form/div/div[3]/button')
+
+# need to put your instagram account to login
+usr.send_keys('')
+password.send_keys('')
 submit.click()
+
 # wait for login in
 time.sleep(5)
 
@@ -38,9 +48,9 @@ for country in countries:
             company = str(df1.iloc[i]['Instagram']).split("/")
             company = company[3]
             url = 'https://www.instagram.com/' + company
-            time.sleep(2)
+            time.sleep(1)
             browser.get(url)
-            time.sleep(2)
+            time.sleep(1)
             m = re.search(r'"edge_followed_by":\{"count":([0-9]+)\}', str(browser.page_source))
             num_followers = m.group(1)
             print(num_followers)
